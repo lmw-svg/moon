@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月相模擬器 - 科學修正版</title>
+    <style>
+        :root { --primary-blue: #4a90e2; --bg-dark: #050510; }
+        body { 
+            margin: 0; background: var(--bg-dark); color: white; 
+            font-family: sans-serif; display: flex; flex-direction: column; align-items: center; 
+        }
+        .main-container { display: flex; flex-direction: column; align-items: center; width: 100%; gap: 15px; padding: 10px; }
+        @media (min-width: 768px) { .main-container { flex-direction: row; justify-content: center; gap: 40px; } }
+
+        .view-card { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; text-align: center; width: 320px; }
+        
+        /* 太空視角 */
+        .space-view { 
+            width: 240px; height: 240px; margin: 10px auto; position: relative; border: 1px dashed #444; border-radius: 50%; 
+        }
+        .sun-label { position: absolute; left: -50px; top: 110px; color: #ffcc00; font-weight: bold; }
+        .earth { position: absolute; left: 95px; top: 95px; width: 50px; height: 50px; background: #2288ff; border-radius: 50%; box-shadow: inset -10px -10px 10px #000; }
+        .moon-orbit { position: absolute; width: 100%; height: 100%; transition: transform 0.6s ease; }
+        .mini-moon { 
+            position: absolute; left: -15px; top: 105px; width: 30px; height: 30px; 
+            background: #fff; border-radius: 50%; box-shadow: inset 15px 0 5px #000; /* 亮面恆指向左 */
+        }
+
+        /* 地球視角 */
+        .earth-view { 
+            width: 140px; height: 140px; background: #eee8aa; border-radius: 50%; 
+            margin: 15px auto; position: relative; overflow: hidden; box-shadow: 0 0 30px rgba(238, 232, 170, 0.3);
+        }
+        .moon-shadow { position: absolute; width: 100%; height: 100%; background: #111; transition: all 0.6s ease; }
+
+        .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 95%; max-width: 500px; margin: 20px 0; }
+        button { padding: 12px 5px; border-radius: 10px; border: none; background: var(--primary-blue); color: white; font-size: 0.9rem; }
+        button.active { background: #ffca28; color: #000; }
+        #info-text { width: 90%; max-width: 600px; color: #ffca28; text-align: center; min-height: 50px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2 style="margin-top:20px;">🌙 月相成因模擬 (太陽光由左方射入)</h2>
+
+    <div class="main-container">
+        <div class="view-card">
+            <strong>🛸 太空視角 (俯視)</strong>
+            <div class="space-view">
+                <div class="sun-label">☀️光</div>
+                <div class="earth"></div>
+                <div id="orbit" class="moon-orbit">
+                    <div class="mini-moon"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-card">
+            <strong>🌍 地球視角 (觀測)</strong>
+            <div class="earth-view">
+                <div id="moon-shadow" class="moon-shadow"></div>
+            </div>
+            <div id="phase-name" style="font-weight: bold;">請選擇農曆日期</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="update(0, 0, '初一：新月', '月球在太陽與地球之間，亮面背向地球。', this)">初一</button>
+        <button onclick="update(-45, -25, '初四：峨眉月', '月球開始移動，地球看到右側邊緣亮起。', this)">初四</button>
+        <button onclick="update(-90, -50, '初八：上弦月', '月球在地球上方，我們看到右半邊亮。', this)">初八</button>
+        <button onclick="update(-180, -100, '十五：滿月', '地球在太陽與月球之間，亮面正對地球。', this)">十五</button>
+        <button onclick="update(-270, 50, '廿二：下弦月', '月球在地球下方，我們看到左半邊亮。', this)">廿二</button>
+        <button onclick="update(-315, 25, '廿七：殘月', '月球快回到太陽前方，剩左側一抹亮。', this)">廿七</button>
+    </div>
+
+    <div id="info-text">點擊按鈕觀察日、地、月位置關係</div>
+
+    <script>
+        function update(deg, shadowLeft, title, info, btn) {
+            // 更新軌道
+            document.getElementById('orbit').style.transform = `rotate(${deg}deg)`;
+            
+            // 更新地球視角遮罩 (核心修正)
+            // shadowLeft 代表遮罩的左移百分比：
+            // 0: 全黑(遮蓋全部), -50: 右半亮, -100: 全亮, 50: 左半亮
+            const shadow = document.getElementById('moon-shadow');
+            shadow.style.left = shadowLeft + "%";
+            
+            document.getElementById('phase-name').innerText = title;
+            document.getElementById('info-text').innerText = info;
+
+            document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
