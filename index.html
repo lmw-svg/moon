@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>跑圈比賽摘要報告</title>
+    <title>跑圈平均表現看板 5月18日版</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f0f2f5; }
         h1, h2, h3 { color: #2c3e50; }
         .header { text-align: center; padding: 20px 0; border-bottom: 2px solid #ecf0f1; margin-bottom: 30px; }
         .timestamp { color: #7f8c8d; font-size: 0.9em; margin-top: 10px; }
@@ -13,148 +13,99 @@
         .section-title { color: #e74c3c; border-left: 4px solid #e74c3c; padding-left: 15px; margin-top: 0; }
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #f2f2f2; font-weight: bold; }
-        tr:hover { background: #f5f5f5; }
-        .highlight { background: #fff3cd; padding: 15px; border-radius: 6px; border-left: 4px solid #ffc107; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tr:hover { background-color: #f5f5f5; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-radius: 6px; border-left: 4px solid #ffc107; }
         .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
-        .badge-gold { background: #ffd700; color: #000; }
-        .badge-silver { background: #c0c0c0; color: #000; }
-        .badge-bronze { background: #cd7f32; color: #fff; }
-        .badge-green { background: #28a745; color: #fff; }
-        .badge-blue { background: #007bff; color: #fff; }
-        .badge-purple { background: #6f42c1; color: #fff; }
-        .badge-teal { background: #20c997; color: #fff; }
-        .meta-info { font-size: 0.85em; color: #666; margin-top: 8px; }
+        .badge-gold { background-color: #ffd700; color: #000; }
+        .badge-silver { background-color: #c0c0c0; color: #000; }
+        .badge-bronze { background-color: #cd7f32; color: #fff; }
+        .badge-green { background-color: #28a745; color: #fff; }
+        .badge-blue { background-color: #007bff; color: #fff; }
+        .badge-purple { background-color: #6f42c1; color: #fff; }
+        .badge-teal { background-color: #20c997; color: #fff; }
+        .badge-red { background-color: #e74c3c; color: #fff; }
         .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #6c757d; font-size: 0.9em; }
-        .data-source { font-size: 0.8em; color: #999; text-align: center; margin-top: 5px; }
         @media (max-width: 600px) { body { padding: 10px; } th, td { padding: 8px; font-size: 0.9em; } }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🏃‍♂️ 2026 跑圈耐力挑戰賽：摘要報告</h1>
-        <div class="timestamp">自動產生 • 2026年05月18日 10:27</div>
-        <div class="data-source">資料來源：Google Sheets（2026-05-18 10:27 擷取）</div>
+        <h1>🏃‍♂️ 2026 跑圈耐力挑戰賽：班級平均表現看板</h1>
+        <div class="timestamp">5月18日版 • 6A 班強勢空降榜首</div>
     </div>
 
     <div class="section">
-        <h2 class="section-title">📊 賽事整體進度</h2>
+        <h2 class="section-title">📊 賽事整體進度 (Event Dashboard)</h2>
+        <p>隨著六年級首個班級 6A 的數據錄入，全校平均耐力紀錄再度被刷新，高年級組展現出極強的統治力。</p>
         <div class="highlight">
-            <p><strong>全校單人最高紀錄：</strong>50 圈（呂秉軒（4B）、鄭佩珊（5B））</p>
-            <p><strong>目前平均表現之王：</strong>5B 班（平均 38.82 圈）</p>
-            <p><strong>最新錄入班級：</strong>3C 班（08/05）</p>
+            <p><strong>全校單人最高紀錄：</strong>50 圈（4B 呂秉軒 / 5B 鄭佩珊）</p>
+            <p><strong>新晉平均表現之王：</strong>6A 班（平均 39.52 圈）🆕</p>
+            <p><strong>最新錄入班級：</strong>6A 班（2026年5月18日）</p>
         </div>
     </div>
 
     <div class="section">
-        <h2 class="section-title">🏆 班級平均表現排行榜</h2>
+        <h2 class="section-title">🏆 班級平均表現排行榜 (Class Average Rankings)</h2>
+        <p>以下是各班學生平均跑圈數的最新排名：</p>
         <table>
             <thead><tr><th>排名</th><th>班級</th><th>日期</th><th>平均圈數</th><th>評等</th></tr></thead>
             <tbody>
-                <tr><td>🥇 1</td><td>5B</td><td>12/05</td><td>38.82</td><td><span class="badge badge-gold">🏆 全校耐力最強班級</span></td></tr>
-                <tr><td>🥈 2</td><td>6A</td><td>18/05</td><td>37.73</td><td><span class="badge badge-silver">🌟 表現卓越</span></td></tr>
-                <tr><td>🥉 3</td><td>5A</td><td>11/05</td><td>37.33</td><td><span class="badge badge-silver">🌟 表現卓越</span></td></tr>
-                <tr><td>4</td><td>5C</td><td>14/05</td><td>33.43</td><td><span class="badge badge-teal">🌟 表現優異</span></td></tr>
-                <tr><td>5</td><td>4B</td><td>21/04</td><td>32.6</td><td><span class="badge badge-teal">🌟 表現優異</span></td></tr>
-                <tr><td>6</td><td>5D</td><td>15/05</td><td>32.5</td><td><span class="badge badge-teal">🌟 表現優異</span></td></tr>
-                <tr><td>7</td><td>4C</td><td>23/04</td><td>32.16</td><td><span class="badge badge-teal">🌟 表現優異</span></td></tr>
-                <tr><td>8</td><td>4A</td><td>20/04</td><td>31.23</td><td><span class="badge badge-teal">🌟 表現優異</span></td></tr>
-                <tr><td>9</td><td>4D</td><td>24/04</td><td>31.05</td><td><span class="badge badge-teal">🌟 表現優異</span></td></tr>
-                <tr><td>10</td><td>3B</td><td>28/04</td><td>26.31</td><td><span class="badge badge-bronze">良好</span></td></tr>
-                <tr><td>11</td><td>2A</td><td>04/05</td><td>23.31</td><td><span class="badge badge-blue">積極參與</span></td></tr>
-                <tr><td>12</td><td>2C</td><td>06/05</td><td>21.31</td><td><span class="badge badge-green">穩定發展</span></td></tr>
-                <tr><td>13</td><td>3C</td><td>08/05</td><td>21.27</td><td><span class="badge badge-green">穩定發展</span></td></tr>
-                <tr><td>14</td><td>3A</td><td>27/04</td><td>20.6</td><td><span class="badge badge-green">穩定發展</span></td></tr>
-                <tr><td>15</td><td>2B</td><td>05/05</td><td>19.47</td><td><span class="badge ">持續努力</span></td></tr>
+                <tr><td>🥇 1</td><td>6A</td><td>18/05</td><td>39.52</td><td><span class="badge badge-red">🏆 全校最強 🆕</span></td></tr>
+                <tr><td>🥈 2</td><td>5B</td><td>12/05</td><td>38.82</td><td><span class="badge badge-gold">🌟 表現卓越</span></td></tr>
+                <tr><td>🥉 3</td><td>5A</td><td>12/05</td><td>38.77</td><td><span class="badge badge-silver">🌟 表現卓越</span></td></tr>
+                <tr><td>4</td><td>5C</td><td>14/05</td><td>34.95</td><td><span class="badge badge-teal">優異</span></td></tr>
+                <tr><td>5</td><td>4A</td><td>20/04</td><td>31.23</td><td><span class="badge badge-bronze">良好</span></td></tr>
+                <tr><td>6</td><td>4C</td><td>23/04</td><td>31.10</td><td><span class="badge badge-bronze">良好</span></td></tr>
+                <tr><td>7</td><td>4B / 4D</td><td>21-24/04</td><td>29.64</td><td><span class="badge badge-blue">良好（並列）</span></td></tr>
+                <tr><td>8</td><td>5D</td><td>15/05</td><td>26.59</td><td><span class="badge badge-purple">穩健</span></td></tr>
+                <tr><td>9</td><td>3B</td><td>28/04</td><td>26.16</td><td><span class="badge badge-green">穩健</span></td></tr>
+                <tr><td>10</td><td>2A</td><td>04/05</td><td>23.31</td><td><span class="badge">積極參與</span></td></tr>
+                <tr><td>11</td><td>2B</td><td>05/05</td><td>20.86</td><td><span class="badge">積極參與</span></td></tr>
+                <tr><td>12</td><td>3C</td><td>08/05</td><td>20.35</td><td><span class="badge">穩定發展</span></td></tr>
+                <tr><td>13</td><td>3A</td><td>27/04</td><td>19.81</td><td><span class="badge">穩定發展</span></td></tr>
+                <tr><td>14</td><td>2C</td><td>06/05</td><td>18.47</td><td><span class="badge">持續努力</span></td></tr>
             </tbody>
         </table>
-        <p class="highlight">註：1A、6B、6C、6D 數據目前仍為 0 或尚未錄入</p>
+        <p class="highlight">註：1A、6B-6D 班級平均數目前仍為 0 或尚未錄入</p>
     </div>
 
     <div class="section">
-        <h2 class="section-title">🌟 個人精英榮譽榜（45 圈以上）</h2>
+        <h2 class="section-title">🌟 個人精英榮譽榜 (Top Performance)</h2>
+        <p>以下為全校跑圈次數達 43 圈及以上的頂尖精英名單：</p>
         <ul>
-            <li>🥇 50 圈（全校紀錄）：呂秉軒（4B）、鄭佩珊（5B）</li>
-            <li>🥈 49 圈：葉潤林（5B）</li>
-            <li>🥉 48 圈：林子杰（5B）</li>
-            <li>🎖️ 47 圈：馮昊賢（5B）</li>
-            <li>🎖️ 45 圈：NWAJIUGO JIDENNA DALIAN（4A）、馮駿熹（4B）、黃子涵（4B）、林子城（5B）、龔沛豪（5C）、賴舜謙（5C）、林恩霈（5C）、史鎧瑋（5C）、楊淮智（5C）</li>
+            <li>🥇 50 圈（全校紀錄）：呂秉軒 (4B)、鄭佩珊 (5B)</li>
+            <li>🥈 49 圈：葉潤林 (5B)</li>
+            <li>🥉 48 圈：林子杰 (5B)</li>
+            <li>🎖️ 47 圈：馮昊賢 (5B)</li>
+            <li>🎖️ 45 圈精英組：</li>
+            <ul>
+                <li>5C 班：龔沛豪、賴舜謙、林恩霈、史鎧瑋、楊淮智</li>
+                <li>5B 班：林子城</li>
+                <li>4A 班：NWAJIUGO JIDENNA DALIAN</li>
+                <li>4B 班：馮駿熹、黃子涵</li>
+            </ul>
+            <li>🎖️ 43-44 圈（新晉及卓越者）：</li>
+            <ul>
+                <li>6A 班：黃仔藝 (44)、鄺雨曦 (44)、鄺朗晴 (43)</li>
+                <li>5C 班：MEHMOOD AHTISHAM (43)、黃志宏 (43)</li>
+                <li>4A 班：闕軍勝 (43)</li>
+            </ul>
         </ul>
     </div>
 
     <div class="section">
-        <h2 class="section-title">🔍 各班表現摘要</h2>
-        <h3>【5B 班 · 五年級】</h3>
-        <p>平均 38.82 圈 · 最高 50 圈 · 有效數據 22/23 人</p>
-        <p class="meta-info">🏅 前三：鄭佩珊（50 圈）、葉潤林（49 圈）、林子杰（48 圈）</p>
-        <p class="meta-info">💪 17 位同學達 35 圈以上</p>
-
-        <h3>【6A 班 · 六年級】</h3>
-        <p>平均 37.73 圈 · 最高 44 圈 · 有效數據 22/22 人</p>
-        <p class="meta-info">🏅 前三：黃仔藝（44 圈）、鄺雨曦（44 圈）、鄺朗晴（43 圈）</p>
-        <p class="meta-info">💪 18 位同學達 35 圈以上</p>
-
-        <h3>【5A 班 · 五年級】</h3>
-        <p>平均 37.33 圈 · 最高 42 圈 · 有效數據 27/27 人</p>
-        <p class="meta-info">🏅 前三：陳奕竣（42 圈）、黃駿霖（42 圈）、陳以琳（40 圈）</p>
-        <p class="meta-info">💪 22 位同學達 35 圈以上</p>
-
-        <h3>【5C 班 · 五年級】</h3>
-        <p>平均 33.43 圈 · 最高 45 圈 · 有效數據 23/23 人</p>
-        <p class="meta-info">🏅 前三：龔沛豪（45 圈）、賴舜謙（45 圈）、林恩霈（45 圈）</p>
-        <p class="meta-info">💪 12 位同學達 35 圈以上</p>
-
-        <h3>【4B 班 · 四年級】</h3>
-        <p>平均 32.6 圈 · 最高 50 圈 · 有效數據 20/23 人</p>
-        <p class="meta-info">🏅 前三：呂秉軒（50 圈）、馮駿熹（45 圈）、黃子涵（45 圈）</p>
-        <p class="meta-info">💪 8 位同學達 35 圈以上</p>
-
-        <h3>【5D 班 · 五年級】</h3>
-        <p>平均 32.5 圈 · 最高 42 圈 · 有效數據 18/23 人</p>
-        <p class="meta-info">🏅 前三：陳仕濠（42 圈）、陳智鵬（41 圈）、江旻熹（41 圈）</p>
-        <p class="meta-info">💪 7 位同學達 35 圈以上</p>
-
-        <h3>【4C 班 · 四年級】</h3>
-        <p>平均 32.16 圈 · 最高 42 圈 · 有效數據 23/25 人</p>
-        <p class="meta-info">🏅 前三：周宏進（42 圈）、魏熙靖（41 圈）、陳佩欣（40 圈）</p>
-        <p class="meta-info">💪 12 位同學達 35 圈以上</p>
-
-        <h3>【4A 班 · 四年級】</h3>
-        <p>平均 31.23 圈 · 最高 45 圈 · 有效數據 22/23 人</p>
-        <p class="meta-info">🏅 前三：NWAJIUGO JIDENNA DALIAN（45 圈）、闕軍勝（43 圈）、伍思蔚（41 圈）</p>
-
-        <h3>【4D 班 · 四年級】</h3>
-        <p>平均 31.05 圈 · 最高 38 圈 · 有效數據 21/23 人</p>
-        <p class="meta-info">🏅 前三：陳睿（38 圈）、張晉樺（38 圈）、張栢言（36 圈）</p>
-
-        <h3>【3B 班 · 三年級】</h3>
-        <p>平均 26.31 圈 · 最高 35 圈 · 有效數據 26/26 人</p>
-        <p class="meta-info">🏅 前三：羅梓杰（35 圈）、陳世傑（34 圈）、莫沂致（34 圈）</p>
-
-        <h3>【2A 班 · 二年級】</h3>
-        <p>平均 23.31 圈 · 最高 29 圈 · 有效數據 16/17 人</p>
-        <p class="meta-info">🏅 前三：魏希佑（29 圈）、吳瑾瑜（28 圈）、蘇俊碩（27 圈）</p>
-
-        <h3>【2C 班 · 二年級】</h3>
-        <p>平均 21.31 圈 · 最高 26 圈 · 有效數據 13/16 人</p>
-        <p class="meta-info">🏅 前三：SINGH MANVEER（26 圈）、陳麗雅（26 圈）、AISHA AMAAL（26 圈）</p>
-
-        <h3>【3C 班 · 三年級】</h3>
-        <p>平均 21.27 圈 · 最高 28 圈 · 有效數據 22/24 人</p>
-        <p class="meta-info">🏅 前三：趙子博（28 圈）、梁灝程（27 圈）、李柏熹（27 圈）</p>
-
-        <h3>【3A 班 · 三年級】</h3>
-        <p>平均 20.6 圈 · 最高 23 圈 · 有效數據 25/27 人</p>
-        <p class="meta-info">🏅 前三：吳俊賢（23 圈）、馮昊霆（22 圈）、劉希烽（22 圈）</p>
-
-        <h3>【2B 班 · 二年級】</h3>
-        <p>平均 19.47 圈 · 最高 22 圈 · 有效數據 15/15 人</p>
-        <p class="meta-info">🏅 前三：歐陽正浩（22 圈）、古偉明（22 圈）、廖浚睎（22 圈）</p>
-
+        <h2 class="section-title">🔍 最新班級表現分析 (Analysis Highlights)</h2>
+        <h3>【6A 班：巔峰降臨】</h3>
+        <p>6A 班展現了極高且極其均衡的體能水平，平均圈數高達 39.52 圈。黃仔藝與鄺雨曦雙雙錄得 44 圈的佳績，全班多名學生維持在 35-40 圈區間。</p>
+        <h3>【五年級組：群雄割據】</h3>
+        <p>5B 與 5A 依然是全校最強的梯隊之一，兩班平均分僅有極微小差距。5C 班雖在平均分排名第四，但其擁有的「45 圈精英」人數（5 位）依然領先全校。</p>
+        <h3>【低年級組：持續追趕】</h3>
+        <p>5D 班以 26.59 圈的平均成績成功超越 3B 班，成為高、低年級間的重要過渡梯隊。</p>
     </div>
 
     <div class="footer">
-        <p>報告產生時間：2026年05月18日 10:27 • 資料由 Google Sheets 自動同步</p>
+        <p>更新至 2026年5月18日 • 報告產出日期：2026年5月18日</p>
     </div>
 </body>
 </html>
