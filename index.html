@@ -1,15 +1,517 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>跑圈平均表現_5月21日版</title>
-  <style>
-    body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 2rem auto; padding: 0 1rem; color: #333; background: #f9f9f9; }
-    pre { background: #fff; padding: 1rem; border-radius: 4px; overflow-x: auto; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 跑圈耐力挑戰賽：全校平均表現看板</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #f97316;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --gold: #f59e0b;
+            --silver: #94a3b8;
+            --bronze: #b45309;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24pt;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 11pt;
+            opacity: 0.9;
+        }
+
+        /* Dashboard Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--card-background);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-icon {
+            font-size: 24pt;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 10pt;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .card-value {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 4px;
+        }
+
+        .card-desc {
+            font-size: 9.5pt;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Section Layout */
+        .section-title {
+            font-size: 14pt;
+            color: var(--primary-color);
+            margin: 32px 0 16px 0;
+            padding-left: 8px;
+            border-left: 4px solid var(--accent-color);
+            font-weight: 700;
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            overflow-x: auto;
+            background: var(--card-background);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 10.5pt;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        tr.top-1 { background-color: #fffbeb; }
+        tr.top-2 { background-color: #f8fafc; }
+        tr.top-3 { background-color: #fff7ed; }
+
+        .rank-badge {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        
+        .rank-1 { background-color: #fef3c7; color: #d97706; }
+        .rank-2 { background-color: #e2e8f0; color: #475569; }
+        .rank-3 { background-color: #ffedd5; color: #c2410c; }
+
+        .laps-highlight {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .rating-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9.5pt;
+            font-weight: 500;
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .rating-best { background-color: #fef3c7; color: #92400e; }
+        .rating-excellent { background-color: #dbeafe; color: #1e40af; }
+        .rating-great { background-color: #dcfce7; color: #166534; }
+        .rating-new { background-color: #fae8ff; color: #86198f; }
+
+        .table-note {
+            font-size: 9.5pt;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Elite List Layout */
+        .elite-box {
+            background: var(--card-background);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .elite-podium {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .podium-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 10.5pt;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .podium-item strong {
+            color: var(--primary-color);
+        }
+
+        .elite-group-title {
+            font-size: 11pt;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        .elite-sublist {
+            margin-left: 20px;
+            margin-bottom: 12px;
+            font-size: 10pt;
+            color: var(--text-main);
+        }
+        
+        .elite-sublist li {
+            margin-bottom: 6px;
+        }
+
+        /* Analysis Cards */
+        .analysis-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .analysis-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .analysis-card h3 {
+            font-size: 12pt;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .analysis-card ul {
+            list-style-type: none;
+        }
+
+        .analysis-card li {
+            font-size: 10pt;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 16px;
+            color: #475569;
+        }
+
+        .analysis-card li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 14pt;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 9.5pt;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-  <pre>🏃‍♂️ 2026 跑圈耐力挑戰賽：全校平均表現看板 (5月21日最新版)<br>📊 賽事整體進度 (Event Dashboard)<br>隨著六年級 6C 班的數據正式錄入，高年級組的競爭已接近尾聲。目前全校最高個人紀錄仍由 6B 班保持，而班級平均表現則呈現高年級領先的態勢。<br>全校單人最高紀錄：55 圈（由 6B 班 周宏傑 保持）。<br>目前平均表現之王：6B 班（平均 41.32 圈）。<br>最新錄入班級：6C 班（測試日期：2026年5月21日）。<br><br>--------------------------------------------------------------------------------<br>🏆 班級平均表現排行榜 (Class Average Rankings)<br>以下是各班學生平均跑圈數的最新排名，這能直觀反映各班級的集體體能素質：<br>排名<br>班級<br>最新比賽日期<br>每班平均圈數 (Average Laps)<br>表現評等<br>🥇 1<br>6B<br>19/05/2026<br>41.32<br>🏆 全校耐力最強團隊<br>🥈 2<br>6A<br>18/05/2026<br>39.52<br>🌟 表現卓越<br>🥉 3<br>5B<br>12/05/2026<br>38.82<br>🌟 表現卓越<br>4<br>5A<br>12/05/2026<br>38.77<br>🌟 表現卓越<br>5<br>5C<br>14/05/2026<br>34.95<br>優異<br>6<br>6C<br>21/05/2026<br>33.73<br>🆕 表現優異<br>7<br>4A<br>20/04/2026<br>31.23<br>良好<br>8<br>4C<br>23/04/2026<br>31.10<br>良好<br>9<br>4B / 4D<br>21/04 - 24/04<br>29.64<br>良好 (並列)<br>10<br>5D<br>15/05/2026<br>26.59<br>穩健<br>11<br>3B<br>28/04/2026<br>26.16<br>穩健<br>12<br>2A<br>04/05/2026<br>23.31<br>積極參與<br>13<br>2B<br>05/05/2026<br>20.86<br>積極參與<br>14<br>3C<br>08/05/2026<br>20.35<br>穩定發展<br>15<br>3A<br>27/04/2026<br>19.81<br>穩定發展<br>16<br>2C<br>06/05/2026<br>18.47<br>持續努力<br><br>--------------------------------------------------------------------------------<br>🌟 個人精英榮譽榜 (Top Performance)<br>以下為全校跑圈次數達 46 圈及以上的頂尖精英名單：<br>🥇 55 圈 (全校紀錄)：周宏傑 (6B)<br>🥈 52 圈：張子妮 (6B)<br>🥉 51 圈：張文俊 (6B)<br>🎖️ 50 圈：呂秉軒 (4B)、鄭佩珊 (5B)<br>🎖️ 49 圈：葉潤林 (5B)<br>🎖️ 48 圈：劉卓諾 (6B)、林子杰 (5B)<br>🎖️ 46 圈 (新晉及同級卓越者)：<br>6C 班：雷駿灝<br>6B 班：楊思汝、朱學欽<br><br>--------------------------------------------------------------------------------<br>🔍 最新班級表現分析 (Analysis Highlights)<br>【6C 班：表現優異的新班級】<br>團隊表現：平均成績為 33.73 圈，成功超越了所有四、三年級班級，位列全校第六。<br>核心跑手：班內表現最突出的是 雷駿灝 (46 圈)、林宇軒 (40 圈)，以及取得 38 圈的 陳梓顥 與 劉睿恒。<br>【六年級組：稱霸榜首】<br>目前全校平均表現的前兩名均由六年級班級（6B 與 6A）包攬。<br>6B 班依然是全校最強的體能班級，不僅平均分最高，也擁有多位刷新全校紀錄的頂尖精英。<br>【待錄入數據】<br>1A 班及 6D 班的數據目前仍為 0 或尚未錄入，待這兩班數據補齊後即可完成全校性總結。<br><br>--------------------------------------------------------------------------------<br>報告產出日期：2026 年 5 月 20 日<br></pre>
+
+<div class="container">
+    <header>
+        <h1>🏃‍♂️ 2026 跑圈耐力挑戰賽</h1>
+        <p>全校平均表現看板 (最新完整版)</p>
+    </header>
+
+    <!-- Overview Stats -->
+    <div class="overview-grid">
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <div class="card-title">目前平均表現之王</div>
+            <div class="card-value">6B 班 (41.32 圈)</div>
+            <div class="card-desc">全校最頂尖的團隊耐力表現</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <div class="card-title">全校單人最高紀錄</div>
+            <div class="card-value">55 圈</div>
+            <div class="card-desc">保持者：6B 班 周宏傑</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🆕</div>
+            <div class="card-title">最新錄入班級</div>
+            <div class="card-value">6D 班</div>
+            <div class="card-desc">測試日期：2026 年 5 月 21 日</div>
+        </div>
+    </div>
+
+    <div class="section-title">🏆 班級平均表現排行榜 (Class Rankings)</div>
+    
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%; text-align: center;">排名</th>
+                    <th style="width: 15%;">班級</th>
+                    <th style="width: 25%;">最新比賽日期</th>
+                    <th style="width: 25%;">每班平均圈數 (Laps)</th>
+                    <th style="width: 25%;">表現評等</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="top-1">
+                    <td style="text-align: center;"><span class="rank-badge rank-1">1</span></td>
+                    <td><strong>6B</strong></td>
+                    <td>19/05/2026</td>
+                    <td class="laps-highlight">41.32</td>
+                    <td><span class="rating-tag rating-best">🏆 全校耐力最強團隊</span></td>
+                </tr>
+                <tr class="top-2">
+                    <td style="text-align: center;"><span class="rank-badge rank-2">2</span></td>
+                    <td><strong>6A</strong></td>
+                    <td>18/05/2026</td>
+                    <td class="laps-highlight">39.52</td>
+                    <td><span class="rating-tag rating-excellent">🌟 表現卓越</span></td>
+                </tr>
+                <tr class="top-3">
+                    <td style="text-align: center;"><span class="rank-badge rank-3">3</span></td>
+                    <td><strong>5B</strong></td>
+                    <td>12/05/2026</td>
+                    <td class="laps-highlight">38.82</td>
+                    <td><span class="rating-tag rating-excellent">🌟 表現卓越</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">4</span></td>
+                    <td>5A</td>
+                    <td>12/05/2026</td>
+                    <td class="laps-highlight">38.77</td>
+                    <td><span class="rating-tag rating-excellent">🌟 表現卓越</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">5</span></td>
+                    <td>5C</td>
+                    <td>14/05/2026</td>
+                    <td>34.95</td>
+                    <td><span class="rating-tag rating-great">優異</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">6</span></td>
+                    <td>6C</td>
+                    <td>21/05/2026</td>
+                    <td>33.73</td>
+                    <td><span class="rating-tag rating-great">優異</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">7</span></td>
+                    <td>4A</td>
+                    <td>20/04/2026</td>
+                    <td>31.23</td>
+                    <td><span class="rating-tag">良好</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">8</span></td>
+                    <td>4C</td>
+                    <td>23/04/2026</td>
+                    <td>31.10</td>
+                    <td><span class="rating-tag">良好</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">9</span></td>
+                    <td>4B / 4D</td>
+                    <td>21/04 - 24/04</td>
+                    <td>29.64</td>
+                    <td><span class="rating-tag">良好 (並列)</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">10</span></td>
+                    <td><strong>6D</strong></td>
+                    <td>21/05/2026</td>
+                    <td>29.48</td>
+                    <td><span class="rating-tag rating-new">🆕 穩定發揮</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">11</span></td>
+                    <td>5D</td>
+                    <td>15/05/2026</td>
+                    <td>26.59</td>
+                    <td><span class="rating-tag">穩健</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">12</span></td>
+                    <td>3B</td>
+                    <td>28/04/2026</td>
+                    <td>25.40</td>
+                    <td><span class="rating-tag">穩健</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">13</span></td>
+                    <td>2A</td>
+                    <td>04/05/2026</td>
+                    <td>23.31</td>
+                    <td><span class="rating-tag">積極參與</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">14</span></td>
+                    <td>2B</td>
+                    <td>05/05/2026</td>
+                    <td>20.86</td>
+                    <td><span class="rating-tag">積極參與</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">15</span></td>
+                    <td>3C</td>
+                    <td>08/05/2026</td>
+                    <td>20.35</td>
+                    <td><span class="rating-tag">穩定發展</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">16</span></td>
+                    <td>3A</td>
+                    <td>27/04/2026</td>
+                    <td>19.81</td>
+                    <td><span class="rating-tag">穩定發展</span></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><span class="rank-badge">17</span></td>
+                    <td>2C</td>
+                    <td>06/05/2026</td>
+                    <td>18.47</td>
+                    <td><span class="rating-tag">持續努力</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-note">💡 註：1A 班數據目前仍記錄為 0。</div>
+
+    <div class="section-title">🌟 個人精英榮譽榜 (Top Performance)</div>
+    <div class="elite-box">
+        <div class="elite-podium">
+            <div class="podium-item">🥇 <strong>55 圈</strong>：周宏傑 (6B)</div>
+            <div class="podium-item">🥈 <strong>52 圈</strong>：張子妮 (6B)</div>
+            <div class="podium-item">🥉 <strong>51 圈</strong>：張文俊 (6B)</div>
+            <div class="podium-item">🎖️ <strong>50 圈</strong>：呂秉軒 (4B)、鄭佩珊 (5B)</div>
+            <div class="podium-item">🎖️ <strong>49 圈</strong>：葉潤林 (5B)</div>
+            <div class="podium-item">🎖️ <strong>48 圈</strong>：劉卓諾 (6B)、林子杰 (5B)</div>
+        </div>
+        
+        <div class="elite-group-title">🎖️ 45-47 圈精英組</div>
+        <ul class="elite-sublist">
+            <li><strong>6B 班</strong>：楊思汝 (46)、朱學欽 (46)、賴曉鋒 (44)、蕭利冰 (44)</li>
+            <li><strong>6C 班</strong>：雷駿灝 (46)</li>
+            <li><strong>5C 班</strong>：龔沛豪、賴舜謙、林恩霈、史鎧瑋、楊淮智 (均為 45 圈)</li>
+            <li><strong>5B 班</strong>：林子城 (45)、馮昊賢 (47)</li>
+            <li><strong>4A 班</strong>：NWAJIUGO JIDENNA DALIAN (45)</li>
+            <li><strong>4B 班</strong>：馮駿熹 (45)、黃子涵 (45)</li>
+        </ul>
+    </div>
+
+    <div class="section-title">🔍 最新班級表現分析 (Analysis Highlights)</div>
+    <div class="analysis-container">
+        <div class="analysis-card">
+            <h3>🏃‍♂️ 【6D 班：穩健完成賽事】</h3>
+            <ul>
+                <li><strong>團隊表現</strong>：平均成績為 29.48 圈，表現與四年級各班相近，位列全校第十。</li>
+                <li><strong>班內核心</strong>：表現最突出的學生包括 <strong>陳凱鑫</strong> (42 圈)、<strong>梁雅悠</strong> (41 圈)、<strong>吳佳純</strong> (41 圈)，以及取得 40 圈 的 <strong>陳柏毅</strong>、<strong>張綽童</strong> 與 **黃嘉璐**。</li>
+            </ul>
+        </div>
+        <div class="analysis-card">
+            <h3>⚡ 【六年級組：統治力十足】</h3>
+            <ul>
+                <li>六年級三個班級（6B, 6A, 6C）均佔據了全校平均成績的前六名，展現了最高年級的體能優勢。</li>
+                <li><strong>6B 班</strong> 以平均超過 41 圈的驚人成績穩坐榜首，其頂尖學生的個人表現亦是全校之冠。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        報告產出日期：2026 年 5 月 21 日 | 2026 跑圈耐力挑戰賽大會
+    </footer>
+</div>
+
 </body>
 </html>
